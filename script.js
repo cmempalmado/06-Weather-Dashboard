@@ -7,11 +7,11 @@ var currentTemperature = $("#temperature");
 var currentHumidty = $("#humidity");
 var currentWSpeed = $("#wind-speed");
 var currentUvindex = $("#uv-index");
-var sCity = [];
+var cityName = [];
 
 function find(c) {
-  for (var i = 0; i < sCity.length; i++) {
-    if (c.toUpperCase() === sCity[i]) {
+  for (var i = 0; i < cityName.length; i++) {
+    if (c.toUpperCase() === cityName[i]) {
       return -1;
     }
   }
@@ -57,24 +57,23 @@ function currentWeather(city) {
     UVIndex(response.coord.lon, response.coord.lat);
     forecast(response.id);
     if (response.cod == 200) {
-      sCity = JSON.parse(localStorage.getItem("cityname"));
-      console.log(sCity);
-      if (sCity == null) {
-        sCity = [];
-        sCity.push(city.toUpperCase()
+      cityName = JSON.parse(localStorage.getItem("cityName"));
+      console.log(cityName);
+      if (cityName == null) {
+        cityName = [];
+        cityName.push(city.toUpperCase()
         );
-        localStorage.setItem("cityname", JSON.stringify(sCity));
+        localStorage.setItem("cityName", JSON.stringify(cityName));
         addToList(city);
       }
       else {
         if (find(city) > 0) {
-          sCity.push(city.toUpperCase());
-          localStorage.setItem("cityname", JSON.stringify(sCity));
+          cityName.push(city.toUpperCase());
+          localStorage.setItem("cityName", JSON.stringify(cityName));
           addToList(city);
         }
       }
     }
-
   });
 }
 
@@ -112,7 +111,6 @@ function forecast(cityid) {
   });
 }
 
-
 function addToList(c) {
   var listEl = $("<li>" + c.toUpperCase() + "</li>");
   $(listEl).attr("class", "list-group-item");
@@ -130,13 +128,13 @@ function invokePastSearch(event) {
 
 function loadlastCity() {
   $("ul").empty();
-  var sCity = JSON.parse(localStorage.getItem("cityname"));
-  if (sCity !== null) {
-    sCity = JSON.parse(localStorage.getItem("cityname"));
-    for (i = 0; i < sCity.length; i++) {
-      addToList(sCity[i]);
+  var cityName = JSON.parse(localStorage.getItem("cityName"));
+  if (cityName !== null) {
+    cityName = JSON.parse(localStorage.getItem("cityName"));
+    for (i = 0; i < cityName.length; i++) {
+      addToList(cityName[i]);
     }
-    city = sCity[i - 1];
+    city = cityName[i - 1];
     currentWeather(city);
   }
 }
