@@ -31,6 +31,7 @@ THEN I am again presented with current and future conditions for that city
 ```
 
 ## Mock-Up
+![Screenshot](https://user-images.githubusercontent.com/107980867/192758723-81a4a42d-295f-4e66-ab3f-b71ca0683f1e.jpg)
 
 
 
