@@ -2,88 +2,142 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Weather Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Prata&display=swap" rel="stylesheet">
+    <title>Weather Dashboard</title>
 </head>
 
 <body>
-  <div class="jumbotron container-fluid mt-2 text-center p-2">
-    <h1>Weather Dashboard</h1>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4 bg-light">
-        <h4 class="pt-1">Enter a City:</h4>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="search-city" aria-label="City Search"
-            aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class=" btn bg-info text-light" id="search-button"><i class="fa fa-search"></i></button>
-          </div>
-        </div>
-        <ul class="list-group">
+    <header class="row">
+        <h1>Weather Dashboard</h1>
+    </header>
+    
+    <main class="container">
+        <section class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8 searchCard">
+                <h2>Search the City</h2>
+                <h3>To View the Forecast</h3>
+                <input id="searchInput" class="search" type="text" onfocus="this.value=''" value="Enter City Name"><br>
+                <button id="searchBtn">Search</button>
+                <h5>Search History:</h5>
+                <div id="searchHistory"></div>
+            </div>
+            <div class="col-lg-4"></div>
+        </section>
 
-        </ul>
-      </div>
-      <div class="col-sm-8 bg-info">
-        <div class="row ml-2">
-          <div class="col-sm-12" id="current-weather">
-            <h3 class="city-name mb-1 mt-2 bolder" id="current-city"></h3>
-            <p class="text-light">Temperature:  <span class="current" id="temperature"></span></p>
-            <p class="text-light">Humidity:  <span class="current" id="humidity"></span></p>
-            <p class="text-light">Wind Speed:  <span class="current" id="wind-speed"></span></p>
-            <p class="text-light">UV index:  <span class="current bg-danger rounded py-2 px-2 text-white"
-                id="uv-index"></span></p>
-          </div>
-        </div>
+        <section id="content" class="hidden">
+            <section class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6 currentCard">
+                    <h4 id="todayCity"></h4><br>
+                    <h5 id="todayDate"></h5><br>
+                    <h5>Current Weather:</h5>
+                    <img id="todayIcon"><br><br>
+                    <h6>Temperature: </h6>
+                    <h6 id="todayTemp"></h6><br>
+                    <h6>Wind: </h6>
+                    <h6 id="todayWind"></h6><br>
+                    <h6>Humidity: </h6>
+                    <h6 id="todayHumidity"></h6>
+                    </h6>%</h6><br>
+                    <h6>UV Index: </h6>
+                    <div id="uvcolor" class="uvcard">
+                        <h6 id="uv"></h6>
+                    </div><br>
+                </div>
+                <div class="col-lg-3"></div>
+            </section>
 
-        <div class="col-sm-12" id="future-weather">
-          <h3>5-Day Forecast:</h3>
-          <div class="row text-light">
-            <div class="col-sm-2 bg-light forecast text-dark ml-2 mb-3 p-2 mt-2 rounded">
-              <p id="fDate0"></p>
-              <p id="fImg0"></p>
-              <p>Temp: <span id="fTemp0"></span></p>
-              <p>Humidity: <span id="fHumidity0"></span></p>
-            </div>
-            <div class="col-sm-2 bg-light forecast text-dark ml-2 mb-3 p-2 mt-2 rounded">
-              <p id="fDate1"></p>
-              <p id="fImg1"></p>
-              <p>Temp: <span id="fTemp1"></span></p>
-              <p>Humidity: <span id="fHumidity1"></span></p>
-            </div>
-            <div class="col-sm-2 bg-light forecast text-dark ml-2 mb-3 p-2 mt-2 rounded">
-              <p id="fDate2"></p>
-              <p id="fImg2"></p>
-              <p>Temp: <span id="fTemp2"></span></p>
-              <p>Humidity: <span id="fHumidity2"></span></p>
-            </div>
-            <div class="col-sm-2 bg-light forecast text-dark ml-2 mb-3 p-2 mt-2 rounded">
-              <p id="fDate3"></p>
-              <p id="fImg3"></p>
-              <p>Temp: <span id="fTemp3"></span></p>
-              <p>Humidity: <span id="fHumidity3"></span></p>
-            </div>
-            <div class="col-sm-2 bg-light forecast text-dark ml-2 mb-3 p-2 mt-2 rounded">
-              <p id="fDate4"></p>
-              <p id="fImg4"></p>
-              <p>Temp: <span id="fTemp4"></span></p>
-              <p>Humidity: <span id="fHumidity4"></span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            <section>
+                <h2>Weather Forecast in the next five days</h2>
+            </section>
 
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js"></script>
+            <section class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2 forecastCard">
+                    <h5 id="day1"></h5>
+                    <img id="day1Icon"><br>
+                    <h6>Temperature: </h6>
+                    <h6 id="day1Temp"></h6><br>
+                    <h6>Wind: </h6>
+                    <h6 id="day1Wind"></h6><br>
+                    <h6>Humidity: <h6 id="day1Humidity"></h6>%</h6><br>
+                </div>
+                <div class="col-lg-2 forecastCard">
+                    <h5 id="day2"></h5>
+                    <img id="day2Icon"><br>
+                    <h6>Temperature: </h6>
+                    <h6 id="day2Temp"></h6><br>
+                    <h6>Wind: </h6>
+                    <h6 id="day2Wind"></h6><br>
+                    <h6>Humidity: <h6 id="day2Humidity"></h6>%</h6><br>
+                </div>
+                <div class="col-lg-2 forecastCard">
+                    <h5 id="day3"></h5>
+                    <img id="day3Icon"><br>
+                    <h6>Temperature: </h6>
+                    <h6 id="day3Temp"></h6><br>
+                    <h6>Wind: </h6>
+                    <h6 id="day3Wind"></h6><br>
+                    <h6>Humidity: <h6 id="day3Humidity"></h6>%</h6><br>
+                </div>
+                <div class="col-lg-2 forecastCard">
+                    <h5 id="day4"></h5>
+                    <img id="day4Icon"><br>
+                    <h6>Temperature: </h6>
+                    <h6 id="day4Temp"></h6><br>
+                    <h6>Wind: </h6>
+                    <h6 id="day4Wind"></h6><br>
+                    <h6>Humidity: <h6 id="day4Humidity"></h6>%</h6><br>
+                </div>
+                <div class="col-lg-2 forecastCard">
+                    <h5 id="day5"></h5>
+                    <img id="day5Icon"><br>
+                    <h6>Temperature: </h6>
+                    <h6 id="day5Temp"></h6><br>
+                    <h6>Wind: </h6>
+                    <h6 id="day5Wind"></h6><br>
+                    <h6>Humidity: <h6 id="day5Humidity"></h6>%</h6><br>
+                </div>
+                <div class="col-lg-3"></div>
+
+            </section>
+            <footer id="footer" class="">
+                <p class="mt-2 mb-1 text-muted text-center"> <small>©2022 Weather Dashboard
+                    <a class="text-danger" href="#">Privacy Policy</a> |
+                    <a class="text-danger" href="#">Terms of Use</a></small></p>
+              </footer>
+
+        </section>
+
+    </main>
+
+    <!--Script links-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
+        integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js"
+        integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/timezone.min.js"
+        integrity="sha512-pslqxxHAYPCxaSeFSmXXxDkLejD5dbFVC66aiVq0z4v7VTJBU+wqcG1OpNh4p3MjS2D6NCwz/H2QmSc7dXxryg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
