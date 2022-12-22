@@ -1,5 +1,7 @@
 const apiUrl = 'https://api.openweathermap.org';
-const apiKey = '621d158e3d9afb2f8ae54d5fb310b3de';
+
+const apiKey = '2e10f27f81420930d6e54b32e594554b';
+
 const searchHistory = [];
 const searchBtnEl = document.getElementById('searchBtn');
 const searchInputEl = document.getElementById('searchInput');
@@ -7,8 +9,54 @@ const searchHistoryEl = document.getElementById('searchHistory');
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
+
+function historyButtons() {
+    const historySection = document.getElementById('searchHistory');
+    historySection.innerHTML = '';
+    for (var i = searchHistory.length - 1; i >= searchHistory.length - 5; i--) {
+        if (i < 0) {
+            return;
+        };
+        const button = document.createElement('button');
+        const lineBreak = document.createElement('br');
+
+        button.setAttribute('type', 'button');
+        button.setAttribute('class', 'history');
+        button.setAttribute('data-search', searchHistory[i]);
+        button.textContent = searchHistory[i];
+
+        historySection.append(button);
+        historySection.append(lineBreak);
+    };
+};
+
+function addHistory(search) {
+    if (searchHistory.indexOf(search) !== -1) {
+        return;
+    };
+    searchHistory.push(search);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    historyButtons();
+};
+
+function saveSearchHistory() {
+    const savedHistory = localStorage.getItem('searchHistory');
+
+    if (savedHistory) {
+       const searchHistory = JSON.parse(savedHistory);
+       return searchHistory;
+    };
+    historyButtons();
+};
+
 function drawCurrentCard(city, weather, time) {
     const date = dayjs().tz(time).format('M/D/YYYY');
+
+    // var temperature = weather.temp;
+    // var windSpeed = weather.wind_speed;
+    // var humidity = weather.humidity;
+    // var uvi = weather.uvi;
+
     const currentDate = document.getElementById('currentDate');
     const currentIcon = document.getElementById('currentIcon');
     const currentTemperature = document.getElementById('currentTemperature');
@@ -19,7 +67,9 @@ function drawCurrentCard(city, weather, time) {
     const uvcolor = document.getElementById('uvcolor');
     const weatherIcon = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
 
-    searchedCity.textContent = city;
+    console.log(weather);
+
+    currentCity.textContent = city;
     currentDate.textContent = date;
     currentIcon.setAttribute('src', weatherIcon);
     currentTemperature.textContent = weather.temp;
@@ -39,6 +89,7 @@ function drawCurrentCard(city, weather, time) {
 
 };
 
+
 function searchCity(event) {
     if (!searchInputEl.value) {
         return alert('Please Enter A City Name.');
@@ -50,7 +101,6 @@ function searchCity(event) {
     searchInputEl.value = '';
     console.log(search)
 };
-
 
 function getCityInfo(location) {
     const lat = location.lat;
@@ -72,6 +122,28 @@ function getCityInfo(location) {
         });
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getCoordinates(search) {
     const url = apiUrl + '/geo/1.0/direct?q=' + search + '&limit=5&appid=' + apiKey;
     fetch(url)
@@ -80,7 +152,7 @@ function getCoordinates(search) {
         })
         .then(function (data) {
             if (!data[0]) {
-                alert('Location not found. Please enter a city name.');
+                alert('This City is not available. Please enter a city name.');
             } else {
                 addHistory(search)
                 getCityInfo(data[0]);
@@ -88,7 +160,7 @@ function getCoordinates(search) {
             }
         })
         .catch(function (err) {
-            console.log(err);
+            console.error(err);
         });
     const content = document.getElementById('content');
     content.removeAttribute('class', 'hidden');
@@ -96,7 +168,7 @@ function getCoordinates(search) {
 
 function drawWeatherCards(daily, time) {
     const day1 = dayjs().tz(time).add(1, 'day').startOf('day').unix();
-    const day5 = dayjs().tz(time).add(5-1, 'day').startOf('day').unix();
+    const day5 = dayjs().tz(time).add(6, 'day').startOf('day').unix();
 
     for (var i = 0; i < daily.length; i++) {
         if (daily[i].dt >= day1 && daily[i].dt < day5) {
@@ -129,45 +201,8 @@ function clickSearchHistory(event) {
     getCoordinates(search);
 };
 
-function addHistory(search) {
-    if (searchHistory.indexOf(search) !== -1) {
-        return;
-    };
-    searchHistory.push(search);
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    historyButtons();
-};
 
-function historyButtons() {
-    const historySection = document.getElementById('searchHistory');
-    historySection.innerHTML = '';
-    for (var i = searchHistory.length - 1; i >= searchHistory.length - 5; i--) {
-        if (i < 0) {
-            return;
-        };
-        const button = document.createElement('button');
-        const lineBreak = document.createElement('br');
 
-        button.setAttribute('type', 'button');
-        button.setAttribute('class', 'history');
-        button.setAttribute('data-search', searchHistory[i]);
-        button.textContent = searchHistory[i];
-
-        historySection.append(button);
-        historySection.append(lineBreak);
-    };
-};
-
-function makeHistory() {
-    const savedHistory = localStorage.getItem('searchHistory');
-
-    if (savedHistory) {
-       const searchHistory = JSON.parse(savedHistory);
-       return searchHistory;
-    };
-    historyButtons();
-};
-
-makeHistory();
+saveSearchHistory();
 searchBtnEl.onclick = searchCity;
 searchHistoryEl.addEventListener('click', clickSearchHistory);
