@@ -1,28 +1,25 @@
 const apiUrl = 'https://api.openweathermap.org';
 const apiKey = '621d158e3d9afb2f8ae54d5fb310b3de';
 const searchHistory = [];
-
 const searchBtnEl = document.getElementById('searchBtn');
 const searchInputEl = document.getElementById('searchInput');
 const searchHistoryEl = document.getElementById('searchHistory');
-
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
 function drawCurrentCard(city, weather, time) {
-
     const date = dayjs().tz(time).format('M/D/YYYY');
-    const currentHumidity = document.getElementById('humidityToday');
-    const currentWind = document.getElementById('windToday');
-    const currentDate = document.getElementById('dateToday');
-    const currentIcon = document.getElementById('iconToday');
-    const currentTemperature = document.getElementById('tempToday');
+    const currentDate = document.getElementById('currentDate');
+    const currentIcon = document.getElementById('currentIcon');
+    const currentTemperature = document.getElementById('currentTemperature');
+    const currentWind = document.getElementById('currentWind');
+    const currentHumidity = document.getElementById('currentHumidity');
 
     const uv = document.getElementById('uv');
     const uvcolor = document.getElementById('uvcolor');
     const weatherIcon = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
 
-    todayCity.textContent = city;
+    searchedCity.textContent = city;
     currentDate.textContent = date;
     currentIcon.setAttribute('src', weatherIcon);
     currentTemperature.textContent = weather.temp;
@@ -44,13 +41,14 @@ function drawCurrentCard(city, weather, time) {
 
 function searchCity(event) {
     if (!searchInputEl.value) {
-        return alert('No City Entered!');
+        return alert('Please Enter A City Name.');
     };
     event.preventDefault();
     const search = searchInputEl.value.trim();
 
     getCoordinates(search);
     searchInputEl.value = '';
+    console.log(search)
 };
 
 

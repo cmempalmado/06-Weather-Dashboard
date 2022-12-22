@@ -1,14 +1,14 @@
 body {
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 16px;
-    background-color: rgb(0, 57, 131);
+    background-color: #161A20;
 }
 
 header {
     justify-content: center;
-    background-color: rgb(0, 57, 131);
+    background-color: #242A36;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: wheat;
+    color: white;
     border-radius: 10px 10px 10px 10px;
     padding: 15px;
     margin-bottom: 5px; 
@@ -22,12 +22,14 @@ footer {
 }
 
 h2 {
+    color:wheat;
     font-weight: bold;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
 }
 
 h3 {
+    color:wheat;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
     font-size: 35px;
@@ -35,11 +37,13 @@ h3 {
 }
 
 h4 {
+    color:wheat;
     text-align: center;
     font-weight: bold;
 }
 
 h5 {
+    color:wheat;
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
     margin-top: 20px;
@@ -48,12 +52,13 @@ h5 {
 }
 
 h6 {
+    color:wheat;
     font-family: 'Times New Roman', Times, serif;
     display: inline;
 }
 
 button:hover {
-    background-color: white;
+    background-color: #192F66;
     color: black;
 }
 
@@ -82,7 +87,7 @@ button {
 .searchCard {
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
-    background-color: rgb(224,255,255);
+    background-color: #454451;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
     margin-top: 30px;
@@ -103,7 +108,7 @@ button {
 }
 
 .history:hover {
-    background-color: rgb(196, 196, 0);
+    background-color: #242A36;
     color: black;
 }
 
@@ -111,7 +116,7 @@ button {
     color: white;
     text-align: center;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: rgb(78, 141, 223);
+    background-color: #242A36;
     border-radius: 10px;
     padding: 10px 0px 10px 0px;
     padding: 1px 0px 10px 0px;
@@ -122,7 +127,7 @@ button {
     color: white;
     text-align: center;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: rgb(78, 141, 223);
+    background-color: #122393;
     border-radius: 10px;
     padding: 10px 0px 10px 0px;
     padding: 10px 0px 10px 0px;
