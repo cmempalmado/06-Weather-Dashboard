@@ -1,7 +1,5 @@
 const apiUrl = 'https://api.openweathermap.org';
-
-const apiKey = '2e10f27f81420930d6e54b32e594554b';
-
+const apiKey = '7e3a149deb7dcf451641dcd1d05f5cd5';
 const searchHistory = [];
 const searchBtnEl = document.getElementById('searchBtn');
 const searchInputEl = document.getElementById('searchInput');
