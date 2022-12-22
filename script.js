@@ -50,18 +50,13 @@ function saveSearchHistory() {
 function drawCurrentCard(city, weather, time) {
     const date = dayjs().tz(time).format('M/D/YYYY');
 
-    // var temperature = weather.temp;
-    // var windSpeed = weather.wind_speed;
-    // var humidity = weather.humidity;
-    // var uvi = weather.uvi;
-
     const currentDate = document.getElementById('currentDate');
     const currentIcon = document.getElementById('currentIcon');
     const currentTemperature = document.getElementById('currentTemperature');
     const currentWind = document.getElementById('currentWind');
     const currentHumidity = document.getElementById('currentHumidity');
 
-    const uv = document.getElementById('uv');
+    const uvi = document.getElementById('uvi');
     const uvcolor = document.getElementById('uvcolor');
     const weatherIcon = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
 
@@ -73,20 +68,20 @@ function drawCurrentCard(city, weather, time) {
     currentTemperature.textContent = weather.temp;
     currentWind.textContent = weather.wind_speed;
     currentHumidity.textContent = weather.humidity;
-    uv.textContent = weather.uvi;
+    uvi.textContent = weather.uvi;
 
-    if (weather.uvi < 3) {
+    console.log(weather.uvi);
+
+    if (weather.uvi < 0.3) {
         uvcolor.setAttribute('class', 'uvcard green');
-    } else if (weather.uvi < 6) {
+    } else if (weather.uvi < 0.6) {
         uvcolor.setAttribute('class', 'uvcard yellow');
-    } else if (weather.uvi < 8) {
+    } else if (weather.uvi < 0.8) {
         uvcolor.setAttribute('class', 'uvcard orange');
     } else {
         uvcolor.setAttribute('class', 'uvcard red');
     };
-
 };
-
 
 function searchCity(event) {
     if (!searchInputEl.value) {
@@ -119,28 +114,6 @@ function getCityInfo(location) {
             console.error(err);
         });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function getCoordinates(search) {
     const url = apiUrl + '/geo/1.0/direct?q=' + search + '&limit=5&appid=' + apiKey;
@@ -188,7 +161,6 @@ function drawWeatherCards(daily, time) {
     };
 };
 
-
 function clickSearchHistory(event) {
     event.preventDefault();
     if (!event.target.matches('button.history')) {
@@ -198,8 +170,6 @@ function clickSearchHistory(event) {
     const search = button.getAttribute('data-search');
     getCoordinates(search);
 };
-
-
 
 saveSearchHistory();
 searchBtnEl.onclick = searchCity;
